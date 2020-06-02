@@ -36,16 +36,15 @@ function functionDeclarationInstantiation(func, argumentsList) {
   let calleeContext = {
     lexicalEnvironment: {
       environmentRecord: {
-        // 如果没有默认函数参数，prarameters和 variables都在这里绑定，否则，只在这里绑定parameters
-        // parameters, variables
-        // const, let 声明绑定
+        // 永远在这里绑定arguments
+        // 如果有形参默认值初始化函数，在这里绑定形参；
+        // 如果没有，形参、var、let、const、function、generator声明都在这里绑定。
       }
     },
-    // 只有存在默认函数参数，才会额外创建variableEnvironment。
     variableEnvironment: {
       environmentRecord: {
-        // 只包含var声明的变量绑定
-        // variables
+        // 有形参默认值初始化函数，才会额外创建variableEnvironment。
+        // 绑定除了arguments和形参之外的所有函数内声明
       }
     }
   }; // 'running execution context'
@@ -54,6 +53,11 @@ function functionDeclarationInstantiation(func, argumentsList) {
   let { code, strict, formals } = func;
   let { parameterNames, simpleParameterList, hasParameterExpressions } = formals;
   let hasDuplicates = doYouHaveDuplicates(parameterNames);
+  // varNames is VarDeclaredNames of code, 包含var、function、generator声名的标识符
+  // varDeclarations is VarScopedDeclarations of code, 包含var、function、generator声明
+  // lexicalNames is LexicallyDeclaredNames of code， 不包含var、function、generator声明，包含从模块中导入的标识符，以及cons、let声明
+  // 在script、function顶层，function、generator声明被视为var declarations 而不是 lexical declarations
+  // 在module顶层，function、generator声明被视为lexical declarations 而不是 var declarations
   let { varNames, varDeclarations, lexicalNames } = code;
   let functionNames = [];
   let functionsToInitialize = [];
@@ -121,6 +125,9 @@ function functionDeclarationInstantiation(func, argumentsList) {
   }
   returnIfAbrupt(formalStatus);
 
+  let varEnv;
+  let varEnvRecord;
+
   if (hasParameterExpressions == false) {
     let instantiatedVarNames = [...parameterNames];
     for (let n of varNames) {
@@ -131,11 +138,12 @@ function functionDeclarationInstantiation(func, argumentsList) {
         envRecord.initializeBinding(n, undefined);
       }
     }
-    let varEnv = env;
-    let varEnvRecord = envRecord;
+    varEnv = env;
+    varEnvRecord = envRecord;
   } else {
-    let varEnv = newDeclarativeEnvironment(env);
-    let varEnvRecord = varEnv.environmentRecord;
+    // varEnv(variable environment)还是可以访问到之前的env(lexical enviroment)
+    varEnv = newDeclarativeEnvironment(env);
+    varEnvRecord = varEnv.environmentRecord;
     calleeContext.variableEnvironment = varEnv;
     let instantiatedVarNames = [];
     for (let n of varNames) {
@@ -162,6 +170,7 @@ function functionDeclarationInstantiation(func, argumentsList) {
   }
 
   let lexicalEnvRecord = lexicalEnv.environmentRecord;
+  // 因为之前 varEnv = newDeclarativeEnvironment(env); 所以重新设置lexicalEnvironment也不会丢掉原来的env
   calleeContext.lexicalEnvironment = lexicalEnv;
   let lexicalDeclarations = code.lexicallyScopedDeclarations;
   for (let d of lexicalDeclarations) {
