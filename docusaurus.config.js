@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Mirror Riddle',
+  title: '编程日记',
   tagline: 'Learn to Code',
   url: 'http://mirror-riddle.xyz',
   baseUrl: '/',

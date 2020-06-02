@@ -3,21 +3,33 @@ id: function-declaration-instantiation
 title: '函数声明实例化'
 ---
 
-调用函数时，在执行函数 body 之前，会执行函数声明实例化过程。在此过程中，首先建立建立新的运行上下文(excution context)，建立一个新的环境记录(environment record)并且在此记录中实例化形式参数绑定，以及函数体内所有的声明。如果形式参数中不存在默认参数函数(default value initializers)，那么函数体内的声明会和形式参数存在于同一个环境记录中；反之，函数体内的声明会存在于一个新建的环境记录中。
-
-所以下列代码的输出不一致。
+以下两个函数输出结果不同
 
 ```javascript
 (function (x, f = () => x) {
-  var x = 2; // var x 和形式参数中的x存在于不同的环境记录中，是隔离的。改变var x，不会影响形参的x。
+  var x = 2;
   console.log(f());
 })(1); // 1
 
 (function (x, f = () => x) {
-  x = 2; // 没有用var声明，要找到x, 要到形式参数的环境记录里找，然后给它复制，改变了形参的x。
+  x = 2;
   console.log(f());
-})(); // 2
+})(1); // 2
 ```
+
+### 原理
+
+调用函数时，需要先评估(evaluate)函数，在它的作用域内绑定形式参数和函数体内的声明，此过程称为函数声明实例化。
+
+- 调用函数时，当前运行的执行上下文叫做 calleeContext。calleeContext 中存在 env(lexical environment), env 中存在 envRec(environment record)，envRec 对象用于实例化形式参数绑定和函数体内的声明。
+
+- 如果形式参数中不存在默认值初始化函数(default value initializers)，那么函数体内的声明会和形式参数都绑定在上述 envRec 中。
+
+- 反之，会新建一个 varEnv(variable environment), 在对应的 varEnvRec 中实例化函数体内的 var 声明和函数声明。如果 var 声明的变量和形参同名，那么该变量的初始值和形参值相同。**这个机制可以保证形参表达式中闭包无法访问函数体内声明的变量。**
+
+因此，由于示例中的两个函数形式参数都存在默认值初始化函数，于是第一个函数内用 var 声明的变量 x 和它的形式参数 x 处于隔离状态，`f = () => x`不能访问函数内的变量 x，调用它总是返回形参 x。第二个函数内的 x 就是形参 x，改变它自然会改变`f = () => x`的输出。
+
+### ECMAScript 标准中函数声明实例化过程
 
 ```javascript
 function functionDeclarationInstantiation(func, argumentsList) {

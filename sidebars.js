@@ -11,6 +11,7 @@ module.exports = {
       'javascript/set',
       'javascript/string',
       'javascript/this',
+      'javascript/function-declaration-instantiation',
     ],
     HTML: ['html/data-attributes'],
     BASH: ['bash/bash-if'],
