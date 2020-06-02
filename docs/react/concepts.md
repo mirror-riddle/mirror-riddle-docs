@@ -1,4 +1,7 @@
-# Main Concepts
+---
+id: concepts
+title: Concepts
+---
 
 ## Introducing JSX
 

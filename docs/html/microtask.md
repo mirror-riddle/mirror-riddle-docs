@@ -1,4 +1,7 @@
-# Microtask
+---
+id: microtask
+title: Microtask
+---
 
 [Microtask](https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide)
 
@@ -39,14 +42,14 @@ You can also use microtasks to collect multiple requests from various sources in
 ```javascript
 const messageQueue = [];
 
-let sendMessage = message => {
+let sendMessage = (message) => {
   messageQueue.push(message);
 
   if (messageQueue.length === 1) {
     queueMicrotask(() => {
       const json = JSON.stringify(messageQueue);
       messageQueue.length = 0;
-      fetch("url-of-receiver", json);
+      fetch('url-of-receiver', json);
     });
   }
 };

@@ -58,7 +58,7 @@ function* gen() {
     try {
       yield 42;
     } catch (e) {
-      console.log("Error caught!");
+      console.log('Error caught!');
     }
   }
 }
@@ -66,7 +66,7 @@ function* gen() {
 var g = gen();
 g.next();
 // { value: 42, done: false }
-g.throw(new Error("Something went wrong"));
+g.throw(new Error('Something went wrong'));
 // "Error caught!"
 // { value: 42, done: false }
 ```

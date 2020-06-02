@@ -1,4 +1,7 @@
-# Interfaces
+---
+id: interface
+title: Interface
+---
 
 [Interfaces](http://www.typescriptlang.org/v2/docs/handbook/interfaces.html)
 

@@ -1,6 +1,6 @@
 ---
 id: concepts
-title: concepts
+title: Concepts
 ---
 
 webpack 是一个针对现代 JavaScript 应用的静态模块打包工具。

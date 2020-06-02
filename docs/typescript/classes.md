@@ -1,4 +1,7 @@
-# Classes
+---
+id: class
+title: Class
+---
 
 ## pubilc, private, protected
 
@@ -35,7 +38,7 @@ class Employee {
 
   set fullName(newName: string) {
     if (newName && newName.length > fullNameMaxLength) {
-      throw new Error("fullName has a max length of " + fullNameMaxLength);
+      throw new Error('fullName has a max length of ' + fullNameMaxLength);
     }
 
     this._fullName = newName;
@@ -43,7 +46,7 @@ class Employee {
 }
 
 let employee = new Employee();
-employee.fullName = "Bob Smith";
+employee.fullName = 'Bob Smith';
 if (employee.fullName) {
   console.log(employee.fullName);
 }
@@ -64,7 +67,7 @@ abstract class Department {
   constructor(public name: string) {}
 
   printName(): void {
-    console.log("Department name: " + this.name);
+    console.log('Department name: ' + this.name);
   }
 
   abstract printMeeting(): void; // must be implemented in derived classes
@@ -72,15 +75,15 @@ abstract class Department {
 
 class AccountingDepartment extends Department {
   constructor() {
-    super("Accounting and Auditing"); // constructors in derived classes must call super()
+    super('Accounting and Auditing'); // constructors in derived classes must call super()
   }
 
   printMeeting(): void {
-    console.log("The Accounting Department meets each Monday at 10am.");
+    console.log('The Accounting Department meets each Monday at 10am.');
   }
 
   generateReports(): void {
-    console.log("Generating accounting reports...");
+    console.log('Generating accounting reports...');
   }
 }
 

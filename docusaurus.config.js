@@ -84,7 +84,8 @@ module.exports = {
       {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
-          homePageId: 'javascript/function-declaration-instantiation',
+          // homePageId: 'javascript/function-declaration-instantiation',
+          homePageId: 'docs-home',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:

@@ -1,4 +1,7 @@
-# detect browser
+---
+id: detect-browser
+title: Detect Browser
+---
 
 ## chrome
 

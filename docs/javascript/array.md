@@ -11,7 +11,7 @@ title: Array
 
 ```javascript
 // Create Array
-const fruits = ["Apple", "Orange"];
+const fruits = ['Apple', 'Orange'];
 
 // access Array item
 const first = fruits[0];
@@ -21,13 +21,13 @@ const last = fruits[fruits.length - 1];
 
 // Loop over Array
 fruits.forEach((item, index, array) => {
-  console.log(index, " ", item);
+  console.log(index, ' ', item);
 });
 // 0 Apple
 // 1 Orange
 
 // Add to end of Array
-fruits.push("Banana");
+fruits.push('Banana');
 // ['Apple', 'Orange', 'Banana']
 
 // Remove from end of Array
@@ -39,11 +39,11 @@ fruits.shift();
 // ['Orange']
 
 // Add to front of Array
-fruits.unShift("Apple");
+fruits.unShift('Apple');
 // ['Apple', 'Orange']
 
 // Find index if item in Array
-const position = fruits.indexOf("Apple");
+const position = fruits.indexOf('Apple');
 // 0
 
 // Remove item by index position
@@ -71,8 +71,8 @@ const shallowCopy2 = [...fruits];
 
 ```javascript
 const years = [2019, 2020];
-years[0] === years["0"]; // true
-years["1"] !== years["01"]; // true
+years[0] === years['0']; // true
+years['1'] !== years['01']; // true
 ```
 
 ## length 和 数值属性
@@ -96,9 +96,9 @@ console.log(a.length);
 可迭代对象： 可以 get 到它的元素的对象，比如 Map 和 Set。
 
 ```javascript
-const a = Array.from("apple");
+const a = Array.from('apple');
 // ['a', 'p', 'p', 'l', 'e']
-const b = Array.from("abc", x => x.toUppercase());
+const b = Array.from('abc', (x) => x.toUppercase());
 // ['A', 'B', 'C']
 const c = Array.from({ length: 5 }, (v, i) => i);
 // [0,1,2,3,4]
@@ -120,7 +120,9 @@ range(1, 10, 2);
 // [1, 3, 5, 7, 9]
 
 // Generate the alphabet using Array.from making use of it being ordered as a sequence
-range("A".charCodeAt(0), "Z".charCodeAt(0), 1).map(x => String.fromCharCode(x));
+range('A'.charCodeAt(0), 'Z'.charCodeAt(0), 1).map((x) =>
+  String.fromCharCode(x)
+);
 // ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
 // "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 ```
@@ -130,7 +132,7 @@ range("A".charCodeAt(0), "Z".charCodeAt(0), 1).map(x => String.fromCharCode(x));
 `Array.of()` : 给定不定数量的参数，创建一个新数组。
 
 ```javascript
-const a = Array.of(1, "apple", true, [1, 2]);
+const a = Array.of(1, 'apple', true, [1, 2]);
 // [1, 'apple', true, [1, 2]]
 ```
 
@@ -143,7 +145,7 @@ const a = Array.of(1, "apple", true, [1, 2]);
 `arr.copyWithin(target[, start[, end]])` : 浅复制数组内的部分元素，到同一数组的另一位置，返回该数组，会改变原数组，但不改变它的长度。The copyWithin works like C and C++'s memmove, and is a high-performance method to shift the data of an Array.
 
 ```javascript
-const array1 = ["a", "b", "c", "d", "e"];
+const array1 = ['a', 'b', 'c', 'd', 'e'];
 
 // copy to index 0 the element at index 3
 console.log(array1.copyWithin(0, 3, 4));
@@ -210,7 +212,7 @@ console.log(array1.fill(6));
 `arr.entries()` 返回一个新的数组迭代器对象，它包含了所有的键值对
 
 ```javascript
-const array1 = ["a", "b", "c"];
+const array1 = ['a', 'b', 'c'];
 
 const iterator1 = array1.entries();
 
@@ -221,7 +223,7 @@ console.log(iterator1.next().value);
 // expected output: Array [1, "b"]
 
 // Iteration with index and element
-const a = ["a", "b", "c"];
+const a = ['a', 'b', 'c'];
 for (const [index, element] of a.entries()) {
   console.log(index, element);
 }
@@ -231,7 +233,7 @@ for (const [index, element] of a.entries()) {
 // 2 'c'
 
 // Using a for...of loop
-var a = ["a", "b", "c"];
+var a = ['a', 'b', 'c'];
 for (let e of a.entries()) {
   console.log(e);
 }

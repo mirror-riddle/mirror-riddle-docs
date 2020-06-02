@@ -1,6 +1,6 @@
 ---
 id: compose
-title: compose
+title: Compose
 ---
 
 ## compose 函数

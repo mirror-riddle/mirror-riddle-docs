@@ -1,4 +1,7 @@
-# random key
+---
+id: random-key
+title: Random Key
+---
 
 ## use Math.random
 

@@ -1,6 +1,6 @@
 ---
 id: storage-api
-title: storage api
+title: Storage Api
 ---
 
 web storage 为每个 origin 保持一个存储区域，可以存键值对。

@@ -1,9 +1,9 @@
 ---
-id: taobao-mirrors
-title: taobao mirrors
+id: taobao-npm-mirrors
+title: Taobao Npm Mirrors
 ---
 
-npm, yarn 均可 [淘宝镜像源](https://developer.aliyun.com/mirror/NPM?from=tnpm)
+npm, yarn 均可使用 [淘宝镜像源](https://developer.aliyun.com/mirror/NPM?from=tnpm)
 
 ```bash
 # npm
