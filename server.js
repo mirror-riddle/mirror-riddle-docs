@@ -1,7 +1,11 @@
 const http = require('http');
+const express = require('express');
+const childProcess = require('child_process');
 
-const server = http.createServer((req, res) => {
-  console.log(req);
+const app = express();
+app.post('/', (req, res) => {
+  console.log(req.body);
+  childProcess.execFile('./deploy.sh');
 });
 
-server.listen(3100);
+http.createServer(app).listen(3100);
