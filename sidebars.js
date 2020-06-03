@@ -36,7 +36,8 @@ module.exports = {
     ],
     Github: ['github/webhooks'],
     Snippets: ['snippets/random-key', 'snippets/detect-browser'],
-    Bash: ['bash/bash-if'],
+    Bash: ['bash/bash-if', 'bash/tar'],
+    Chrome: ['chrome/chrome-error'],
     Mirrors: ['mirrors/taobao-npm-mirrors'],
   },
 };

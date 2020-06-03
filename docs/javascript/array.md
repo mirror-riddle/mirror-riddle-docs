@@ -203,7 +203,7 @@ console.log(array1.fill(6));
 
 `arr.slice([begin[, end]])`
 
-`arr.toString()` 元素调用 toString(), 然后用逗号连接成字符串
+`arr.toString()` 元素调用 toString(), 然后用逗号连接成字符串 `['a', 'b'].toString() --> a,b`
 
 `arr.toLocaleString()`
 
