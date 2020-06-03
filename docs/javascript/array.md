@@ -183,7 +183,7 @@ console.log(array1.fill(6));
 
 `arr.reverse()`
 
-`arr.sort((firstEl, secondEl): boolean)`
+`arr.sort((firstEl, secondEl): boolean)` **如果不提供比较函数，只能用来排序字符串数组，不能用于排序数字数组。因为默认比较函数是先把元素转化为字符串之后再比较的**
 
 `arr.splice(start[, deleteCount[, item1[, item2[, ...]]]])`
 

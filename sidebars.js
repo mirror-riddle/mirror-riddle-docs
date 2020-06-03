@@ -15,6 +15,7 @@ module.exports = {
       'javascript/set',
       'javascript/string',
       'javascript/this',
+      'javascript/var-let-const',
     ],
     TypeScript: [
       'typescript/basic-types',
@@ -37,6 +38,7 @@ module.exports = {
     Github: ['github/webhooks'],
     Snippets: ['snippets/random-key', 'snippets/detect-browser'],
     Bash: ['bash/bash-if', 'bash/tar'],
+    Linux: ['linux/directory'],
     Chrome: ['chrome/chrome-error'],
     Mirrors: ['mirrors/taobao-npm-mirrors'],
   },

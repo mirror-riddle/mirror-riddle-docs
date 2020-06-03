@@ -9,22 +9,22 @@ title: String
 
 ```javascript
 let longString =
-  "This is a very long string which needs " +
-  "to wrap across multiple lines because " +
-  "otherwise my code is unreadable.";
+  'This is a very long string which needs ' +
+  'to wrap across multiple lines because ' +
+  'otherwise my code is unreadable.';
 
 let longString =
-  "This is a very long string which needs \
+  'This is a very long string which needs \
 to wrap across multiple lines because \
-otherwise my code is unreadable.";
+otherwise my code is unreadable.';
 ```
 
 ## Character access
 
 ```javascript
-return "cat".charAt(1);
+return 'cat'.charAt(1);
 
-return "cat"[1];
+return 'cat'[1];
 ```
 
 ## string primitives and String objects
@@ -76,7 +76,7 @@ console.log(eval(s2.valueOf())); // returns the number 4
 `str.match()` 返回 str 的匹配结果（数组）
 
 ```javascript
-const paragraph = "The quick brown fox jumps over the lazy dog. It barked.";
+const paragraph = 'The quick brown fox jumps over the lazy dog. It barked.';
 const regex = /[A-Z]/g;
 const found = paragraph.match(regex);
 
@@ -88,7 +88,7 @@ console.log(found);
 
 ```javascript
 let regexp = /t(e)(st(\d?))/g;
-let str = "test1test2";
+let str = 'test1test2';
 
 let array = [...str.matchAll(regexp)];
 
@@ -104,10 +104,10 @@ console.log(array[1]);
 `str.padEnd(targetLength [, padString])` 会用一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的末尾（右侧）开始填充。
 
 ```javascript
-"abc".padEnd(10); // "abc       "
-"abc".padEnd(10, "foo"); // "abcfoofoof"
-"abc".padEnd(6, "123456"); // "abc123"
-"abc".padEnd(1); // "abc"
+'abc'.padEnd(10); // "abc       "
+'abc'.padEnd(10, 'foo'); // "abcfoofoof"
+'abc'.padEnd(6, '123456'); // "abc123"
+'abc'.padEnd(1); // "abc"
 ```
 
 `str.padStart()`
@@ -136,7 +136,7 @@ console.log(array[1]);
 
 `str.toUpperCase()`
 
-`str.trim()` removes whitespace from both ends of a string. Whitespace in this context is all the whitespace characters (space, tab, no-break space, etc.) and all the line terminator characters (LF, CR, etc.).
+`str.trim()` 移除两边的 whitespace(space, tab, no-break space, etc.)和换行符(LF, CR, etc.)。注意这个函数不接受参数，不能移除指定的字符，和 Python 不一样。。。
 
 `str.trimStart()` `str.trimLeft()`
 
