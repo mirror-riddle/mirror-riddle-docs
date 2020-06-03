@@ -34,6 +34,7 @@ module.exports = {
       'http/methods',
       'http/status-codes',
     ],
+    Github: ['github/webhooks'],
     Snippets: ['snippets/random-key', 'snippets/detect-browser'],
     Bash: ['bash/bash-if'],
     Mirrors: ['mirrors/taobao-npm-mirrors'],
