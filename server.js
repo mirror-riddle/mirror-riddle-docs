@@ -4,7 +4,7 @@ const childProcess = require('child_process');
 
 const app = express();
 app.post('/', (req, res) => {
-  console.log(req.body);
+  console.log(req.body, res.header);
   childProcess.execFile('./deploy.sh');
 });
 
