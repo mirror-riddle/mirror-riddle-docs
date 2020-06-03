@@ -9,7 +9,7 @@ CORS（跨域资源共享）: 服务器用额外的http headers告诉浏览器, 
 
 处于安全原因，浏览器限制了从脚本中发起的跨域请求，因此网页APP只能访问同一origin的资源，除非另一个origin的服务器response包含了正确的跨域header。
 
-![cors principle](assets/cors-principle.png)
+![cors principle](/img/cors-principle.png)
 
 ## Simple requests
 
@@ -31,7 +31,7 @@ CORS（跨域资源共享）: 服务器用额外的http headers告诉浏览器, 
 
 首先向目标服务器发送OPTIONS请求，以确定是否可以发送实际请求。
 
-![preflight-correct](assets/preflight-correct.png)
+![preflight-correct](/img/preflight-correct.png)
 
 OPTIONS is an HTTP/1.1 method that is used to determine further information from servers, and is a safe method, meaning that it can't be used to change the resource.
 

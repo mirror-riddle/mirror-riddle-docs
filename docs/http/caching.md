@@ -3,23 +3,23 @@ id: caching
 title: caching
 ---
 
-重用已经获取的资源，可以极大地加速网页打开速度。web caching减少了延迟和网络拥堵，减少显示资源所需要的时间。
+重用已经获取的资源，可以极大地加速网页打开速度。web caching 减少了延迟和网络拥堵，减少显示资源所需要的时间。
 
 缓存类别
 
-![http cache type](assets/http-cache-type.png)
+![http cache type](/img/http-cache-type.png)
 
 1. private browser cache
-存储的数据针对单个用户, 浏览器缓存所有通过HTTP获取的资源。
+   存储的数据针对单个用户, 浏览器缓存所有通过 HTTP 获取的资源。
 
 2. shared proxy cache
-存储的数据针对多个用户, proxy缓存资源，给其下的多个客户端使用
+   存储的数据针对多个用户, proxy 缓存资源，给其下的多个客户端使用
 
 3. browser, proxy, gateway, CDN, reverse proxy, load balancer.
 
 ## Targets of caching operations
 
-通常HTTP缓存只针对GET请求的回应。
+通常 HTTP 缓存只针对 GET 请求的回应。
 
 1. Successful results of a retrieval request: a 200 (OK) response to a GET request containing a resource like HTML documents, images or files.
 
@@ -37,40 +37,40 @@ title: caching
 
 1. no caching
 
-    ```http
-    Cache-Control: no-store
-    ```
+   ```http
+   Cache-Control: no-store
+   ```
 
 2. cache but revalidate: A cache will send the request to the origin server for validation before releasing a cached copy.
 
-    ```http
-    Cache-Control: no-cache
-    ```
+   ```http
+   Cache-Control: no-cache
+   ```
 
 3. private and public caches
 
-    ```http
-    Cache-Control: private
-    Cache-Control: public
-    ```
+   ```http
+   Cache-Control: private
+   Cache-Control: public
+   ```
 
 4. expiration
 
-    ```http
-    Cache-Control: max-age=200000
-    ```
+   ```http
+   Cache-Control: max-age=200000
+   ```
 
 5. validation
 
-    ```http
-    Cache-Control: must-revalidate
-    ```
+   ```http
+   Cache-Control: must-revalidate
+   ```
 
 ## Freshness
 
 Once a resource is stored in a cache, it could theoretically be served by the cache forever. Caches have finite storage so items are periodically removed from storage. This process is called `cache eviction`. On the other side, some resources may change on the server so the cache should be updated. As HTTP is a client-server protocol, servers can't contact caches and clients when a resource changes; they have to communicate an expiration time for the resource. Before this expiration time, the resource is fresh; after the expiration time, the resource is stale. Eviction algorithms often privilege fresh resources over stale resources. Note that a stale resource is not evicted or ignored; when the cache receives a request for a stale resource, it forwards this request with a If-None-Match to check if it is in fact still fresh. If so, the server returns a 304 (Not Modified) header without sending the body of the requested resource, saving some bandwidth.
 
-![http staleness](assets/http-staleness.png)
+![http staleness](/img/http-staleness.png)
 
 ## Revved Resources
 
@@ -78,7 +78,7 @@ Web developers invented a technique that Steve Souders called revving[1]. Infreq
 
 This technique has an additional benefit: updating two cached resources at the same time will not lead to the situation where the out-dated version of one resource is used in combination with the new version of the other one. This is very important when web sites have CSS stylesheets or JS scripts that have mutual dependencies, i.e., they depend on each other because they refer to the same HTML elements.
 
-![http revved](assets/http-revved.png)
+![http revved](/img/http-revved.png)
 
 ## Cache Validation
 
@@ -100,7 +100,7 @@ The Vary HTTP response header determines how to match future request headers to 
 
 When a cache receives a request that can be satisfied by a cached response that has a Vary header field, it must not use that cached response unless all header fields as nominated by the Vary header match in both the original (cached) request and the new request.
 
-![http vary](assets/http-vary.png)
+![http vary](/img/http-vary.png)
 
 This can be useful for serving content dynamically, for example. When using the Vary: User-Agent header, caching servers should consider the user agent when deciding whether to serve the page from cache. If you are serving different content to mobile users, it can help you to avoid that a cache may mistakenly serve a desktop version of your site to your mobile users. In addition, it can help Google and other search engines to discover the mobile version of a page, and might also tell them that no Cloaking is intended.
 
