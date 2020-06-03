@@ -24,7 +24,7 @@ module.exports = {
     ],
     React: ['react/concepts'],
     Webpack: ['webpack/concepts'],
-    CSS: ['css/flex'],
+    CSS: ['css/flex', 'css/css-in-head'],
     Html: [
       'html/data-attributes',
       'html/microtask',
