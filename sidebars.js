@@ -31,6 +31,7 @@ module.exports = {
       'html/storage-api',
       'html/xhr',
       'html/add-event-listener',
+      'html/script',
     ],
     Http: [
       'http/overview',
