@@ -10,11 +10,15 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/').post((req, res) => {
-  console.log(req.body, res.headers);
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
+
+app.post('/', (req, res) => {
+  res.sendStatus(200);
   childProcess.execFile('./deploy.sh', [], {}, (error, stdout, stderr) => {
-    if (err) {
-      throw err;
+    if (error) {
+      throw error;
     }
     console.log(stdout);
   });
