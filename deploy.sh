@@ -1,6 +1,11 @@
 #! /usr/bin/env bash
 
+docsPath="/data/www/mirror-riddle-docs"
+
+echo "-------------git pull------------"
 git pull
+echo "-------------yarn buid-----------"
 yarn build
-sudo rm -r /data/www/mirror-riddle-docs
-sudo cp -r build /data/www/mirror-riddle-docs
+echo "-------------replace statics-----"
+sudo rm -r $docsPath
+sudo cp -r build $docsPath
