@@ -30,6 +30,7 @@ module.exports = {
       'html/microtask',
       'html/storage-api',
       'html/xhr',
+      'html/add-event-listener',
     ],
     Http: [
       'http/overview',
