@@ -16,6 +16,7 @@ module.exports = {
       'javascript/string',
       'javascript/this',
       'javascript/var-let-const',
+      'javascript/closure',
     ],
     TypeScript: [
       'typescript/basic-types',

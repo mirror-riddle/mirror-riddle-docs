@@ -1,6 +1,6 @@
 ---
 id: docs-home
-title: 传送门
+title: Guides
 ---
 
 ### JavaScript
