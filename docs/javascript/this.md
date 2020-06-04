@@ -3,8 +3,7 @@ id: this
 title: This
 ---
 
-[this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
-
+大多数情况下，函数内 this 的值取决于函数是如何被调用的。不能在函数执行时重新给 this 赋值，同时每次函数被调用 this 的值也可能不一样。
 A function's `this` keyword behaves a little differently in JavaScript compared to other languages. It also has some differences between strict mode and non-strict mode.
 
 In most cases, the value of `this` is determined by how a function is called (runtime binding). It can't be set by assignment during execution, and it may be different each time the function is called. ES5 introduced the `bind()` method to set the value of a function's this regardless of how it's called, and ES2015 introduced arrow functions which don't provide their own this binding (it retains the this value of the enclosing lexical context).
@@ -20,7 +19,7 @@ console.log(this === window); // true
 a = 37;
 console.log(window.a); // 37
 
-this.b = "MDN";
+this.b = 'MDN';
 console.log(window.b); // "MDN"
 console.log(b); // "MDN"
 ```
@@ -51,7 +50,7 @@ f1() === global; // true
 
 ```javascript
 function f2() {
-  "use strict"; // see strict mode
+  'use strict'; // see strict mode
   return this;
 }
 
@@ -62,10 +61,10 @@ f2() === undefined; // true
 
 ```javascript
 // An object can be passed as the first argument to call or apply and this will be bound to it.
-var obj = { a: "Custom" };
+var obj = { a: 'Custom' };
 
 // This property is set on the global object
-var a = "Global";
+var a = 'Global';
 
 function whatsThis() {
   return this.a; // The value of this is dependent on how the function is called
@@ -101,10 +100,10 @@ function f() {
   return this.a;
 }
 
-var g = f.bind({ a: "azerty" });
+var g = f.bind({ a: 'azerty' });
 console.log(g()); // azerty
 
-var h = g.bind({ a: "yoo" }); // bind only works once!
+var h = g.bind({ a: 'yoo' }); // bind only works once!
 console.log(h()); // azerty
 
 var o = { a: 37, f: f, g: g, h: h };
@@ -146,10 +145,10 @@ No matter what, foo's this is set to what it was when it was created (in the exa
 // in the call, which in turn sets the value of the
 // returned function.
 var obj = {
-  bar: function() {
+  bar: function () {
     var x = () => this;
     return x;
-  }
+  },
 };
 
 // Call bar as a method of obj, setting its this to obj
@@ -175,9 +174,9 @@ the method is called on.
 ```javascript
 var o = {
   prop: 37,
-  f: function() {
+  f: function () {
     return this.prop;
-  }
+  },
 };
 
 console.log(o.f()); // 37

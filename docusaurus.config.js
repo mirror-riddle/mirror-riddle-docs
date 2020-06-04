@@ -14,12 +14,12 @@ module.exports = {
         src: 'img/logo.svg',
       },
       links: [
-        {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
+        // {
+        //   to: 'docs/',
+        //   activeBasePath: 'docs',
+        //   label: 'Docs',
+        //   position: 'left',
+        // },
         // { to: 'blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/mirror-riddle/mirror-riddle-docs',
@@ -85,6 +85,7 @@ module.exports = {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
           // homePageId: 'javascript/function-declaration-instantiation',
+          routeBasePath: '/',
           homePageId: 'docs-home',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
