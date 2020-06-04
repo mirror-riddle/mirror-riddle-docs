@@ -35,3 +35,15 @@
   height: 200px;
   width: 200px;
 }
+
+.counter {
+  border: solid 1px silver;
+  padding: 8px;
+  margin: 8px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+}

@@ -14,12 +14,12 @@ module.exports = {
         src: 'img/logo.svg',
       },
       links: [
-        // {
-        //   to: 'docs/',
-        //   activeBasePath: 'docs',
-        //   label: 'Docs',
-        //   position: 'left',
-        // },
+        {
+          to: 'cases/',
+          activeBasePath: 'pages',
+          label: 'Cases',
+          position: 'left',
+        },
         // { to: 'blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/mirror-riddle/mirror-riddle-docs',
