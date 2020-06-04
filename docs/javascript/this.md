@@ -173,3 +173,34 @@ var o = {
 
 console.log(o.f()); // 37
 ```
+
+### 事件监听函数
+
+在元素的事件监听函数内，this 指向该元素(对于普通函数而言)。如果监听函数是箭头函数，那么 this 就取决于语义环境了。
+
+```javascript
+const nav = document.querySelector('.nav');
+nav.addEventListener(
+  'click',
+  function () {
+    console.log(this); // nav element
+  },
+  false
+);
+
+nav.addEventListener('load', () => {
+  console.log(this); // window
+});
+```
+
+### 异步代码
+
+异步代码执行的环境和它的语义环境是不一样的，所以 this 的值也是要变的。
+
+```javascript
+document.body.addEventListener('click', function () {
+  setTimeout(function () {
+    console.log(this); // window
+  });
+});
+```
