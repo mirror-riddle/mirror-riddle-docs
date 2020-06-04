@@ -3,14 +3,11 @@ id: this
 title: This
 ---
 
-大多数情况下，函数内 this 的值取决于函数是如何被调用的。不能在函数执行时重新给 this 赋值，同时每次函数被调用 this 的值也可能不一样。
-A function's `this` keyword behaves a little differently in JavaScript compared to other languages. It also has some differences between strict mode and non-strict mode.
+大多数情况下，函数内 this 的值取决于函数是如何被调用的。不能在函数执行时重新给 this 赋值，同时每次函数被调用 this 的值也可能不一样。`bind()`方法可以给函数绑定 this，使 this 的值与函数如何被调用无关。箭头函数没有自己的 this 绑定，其内部的 this 指向上层 lexical context 的 this。
 
-In most cases, the value of `this` is determined by how a function is called (runtime binding). It can't be set by assignment during execution, and it may be different each time the function is called. ES5 introduced the `bind()` method to set the value of a function's this regardless of how it's called, and ES2015 introduced arrow functions which don't provide their own this binding (it retains the this value of the enclosing lexical context).
+### 全局上下文
 
-## Global context
-
-In the global execution context (outside of any function), `this` refers to the global object whether in strict mode or not.
+在全局上下文中（不在任何函数中），this 指向全局对象(global object)。无论代码在哪个执行上下文中运行，`globalThis`总是指向全局对象(global object)。
 
 ```javascript
 // In web browsers, the window object is also the global object:
@@ -24,13 +21,9 @@ console.log(window.b); // "MDN"
 console.log(b); // "MDN"
 ```
 
-You can always easily get the global object using the global `globalThis` property, regardless of the current context in which your code is running.
+### 函数上下文
 
-## Function context
-
-Inside a function, the value of `this` depends on how the function is called.
-
-### Simple call
+在函数内部，this 的值取决于函数如何被调用。
 
 非严格模式下，`this`指代全局对象，在浏览器里就是 `window`
 
@@ -91,9 +84,9 @@ add.call(o, 5, 7); // 16
 add.apply(o, [10, 20]); // 34
 ```
 
-### The bind method
+### bind()
 
-ECMAScript 5 introduced `Function.prototype.bind()`. Calling `f.bind(someObject)` creates a new function with the same body and scope as `f`, but where this occurs in the original function, in the new function it is **permanently** bound to the first argument of bind, regardless of how the function is being used.
+调用 `f.bind(someObject)` 会返回一个新函数，这个函数的函数体和作用域和 f 相同，但是 this 永久地和 someObject 绑定。
 
 ```javascript
 function f() {
@@ -110,9 +103,9 @@ var o = { a: 37, f: f, g: g, h: h };
 console.log(o.a, o.f(), o.g(), o.h()); // 37,37, azerty, azerty
 ```
 
-### Arrow functions
+### 箭头函数
 
-In arrow functions, this retains the value of the enclosing lexical context's `this`. In global code, it will be set to the global object:
+箭头函数内，this 指向包含该函数的语义上下文(lexical context)的 this。如果箭头函数处在全局环境下，this 就是全局对象(global object)。
 
 ```javascript
 var globalObject = this;
@@ -120,7 +113,7 @@ var foo = () => this;
 console.log(foo() === globalObject); // true
 ```
 
-if this arg is passed to call, bind, or apply on invocation of an arrow function it will be ignored. You can still prepend arguments to the call, but the first argument (thisArg) should be set to null.
+call(), apply(), bind()不会改变箭头函数的 this。
 
 ```javascript
 // Call as a method of an object
@@ -135,7 +128,7 @@ foo = foo.bind(obj);
 console.log(foo() === globalObject); // true
 ```
 
-No matter what, foo's this is set to what it was when it was created (in the example above, the global object). The same applies to arrow functions created inside other functions: their this remains that of the enclosing lexical context.
+如果箭头函数是在另一个普通函数中创建的，那么它的 this 指向的就是外层函数的 this。
 
 ```javascript
 // Create obj with a method bar that returns a function that
@@ -166,10 +159,9 @@ var fn2 = obj.bar;
 console.log(fn2()() == window); // true
 ```
 
-### As an object method
+### 对象方法
 
-When a function is called as a method of an object, its `this` is set to the object
-the method is called on.
+当函数作为一个对象的方法被调用时，this 指向该对象。
 
 ```javascript
 var o = {

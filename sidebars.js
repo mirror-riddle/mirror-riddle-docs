@@ -46,6 +46,7 @@ module.exports = {
       'http/status-codes',
       'http/headers',
     ],
+    Algorithm: ['algorithm/fibonacci'],
     Github: ['github/webhooks'],
     Snippets: ['snippets/random-key', 'snippets/detect-browser'],
     Bash: ['bash/bash-if', 'bash/tar'],
