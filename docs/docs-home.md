@@ -16,7 +16,7 @@ title: Guides
 
 ### HTML(规范)
 
-- [添加时间监听器](html/add-event-listener)
+- [添加事件监听器](html/add-event-listener)
 - [数据属性](html/data-attributes)
 - [微任务](html/microtask)
 - [script 标签](html/script)
