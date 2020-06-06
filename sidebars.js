@@ -17,6 +17,7 @@ module.exports = {
       'javascript/this',
       'javascript/var-let-const',
       'javascript/closure',
+      'javascript/debounce-throttle',
     ],
     TypeScript: [
       'typescript/basic-types',

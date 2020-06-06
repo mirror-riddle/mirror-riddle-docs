@@ -55,8 +55,7 @@ title: interview
 
    call(thisArg, ...args)调用一个函数，this 是绑定的 this，参数是绑定的参数。
 
-   apply(thisArg, arg[])同 call()，但是参数是参数数组。当一个函数接受多个参数，而你手头只有一个数组，那么就可以用 apply()直接传递这个数组给这个函数，效果相当于
-   一个一个传递参数。在 es6 中可以用 spread 语法来简化这个过程。
+   apply(thisArg, arg[])同 call()，但是参数是参数数组。当一个函数接受多个参数，而你手头只有一个数组，那么就可以用 apply()直接传递这个数组给这个函数，效果相当于一个一个传递参数。在 es6 中可以用 spread 语法来简化这个过程。
 
    ```javascript
    array.push.apply(array, arguments);
