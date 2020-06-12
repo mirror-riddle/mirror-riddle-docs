@@ -1,7 +1,12 @@
 ---
 id: docs-home
-title: Guides
+title: ' '
 ---
+
+### 算法
+
+- [高效循环](algorithm/effective-loop)
+- [斐波那契数列求和](algorithm/fibonacci)
 
 ### JavaScript
 
@@ -10,18 +15,14 @@ title: Guides
 - [compose()](javascript/compose)
 - [this](javascript/this)
 
-### CSS
+<!-- ### CSS -->
 
-- [flex 布局](css/flex)
+<!-- - [flex 布局](css/flex) -->
 
-### HTML(规范)
+<!-- ### HTML(规范) -->
 
-- [添加事件监听器](html/add-event-listener)
-- [数据属性](html/data-attributes)
-- [微任务](html/microtask)
-- [script 标签](html/script)
-- [xhr](html/xhr)
-
-### 算法
-
-- [斐波那契数列求和](algorithm/fibonacci)
+<!-- - [添加事件监听器](html/add-event-listener) -->
+<!-- - [数据属性](html/data-attributes) -->
+<!-- - [微任务](html/microtask) -->
+<!-- - [script 标签](html/script) -->
+<!-- - [xhr](html/xhr) -->

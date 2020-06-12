@@ -15,9 +15,15 @@ module.exports = {
       },
       links: [
         {
+          to: '/',
+          activeBasePath: '/',
+          label: '文档',
+          position: 'left',
+        },
+        {
           to: 'cases/',
           activeBasePath: 'pages',
-          label: 'Cases',
+          label: '示例',
           position: 'left',
         },
         // { to: 'blog', label: 'Blog', position: 'left' },
@@ -87,10 +93,10 @@ module.exports = {
           // homePageId: 'javascript/function-declaration-instantiation',
           routeBasePath: '/',
           homePageId: 'docs-home',
-          sidebarPath: require.resolve('./sidebars.js'),
+          // sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/mirror-riddle/mirror-riddle-docs/edit/master/website/',
+          // editUrl:
+          // 'https://github.com/mirror-riddle/mirror-riddle-docs/edit/master/website/',
         },
         // blog: {
         //   showReadingTime: true,
