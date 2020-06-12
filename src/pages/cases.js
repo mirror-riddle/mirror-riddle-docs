@@ -59,9 +59,7 @@ const Counter = (props) => {
 
   return (
     <div className={styles.counter} ref={counter}>
-      <p>{`capture: ${capture}`}</p>
-      <p>{`title: ${title}`}</p>
-      <p>{`count: ${count}`}</p>
+      <p className={styles.title}>{title}</p>
       {children}
     </div>
   );
@@ -96,22 +94,32 @@ const CaseCounter = () => {
   return (
     <section className={styles.caseCounter}>
       <p>
-        测试DOM事件传播。ancestor, parent,
-        child三个div都绑定了点击事件监听函数，且看绑定事件时设置capture不同时，事件触发顺序会有何种变化。
+        1. 测试DOM事件传播。ancestor,
+        parent,child三个div都绑定了点击事件监听函数，观察绑定事件监听函数时，capture参数不同，事件触发顺序会有何变化。
+        事件触发顺序是先从document到target元素(capture
+        mode)，再从target元素冒泡至document(bubble mode)
       </p>
-      <input type="button" value="clear list" onClick={onClickClearList} />
-      <p>{`list: ${state.list.toString()}`}</p>
-      <CaptureSwitch
-        title="ancestor"
-        dispatch={dispatch}
-        capture={state.ancestor}
-      />
-      <CaptureSwitch
-        title="parent"
-        dispatch={dispatch}
-        capture={state.parent}
-      />
-      <CaptureSwitch title="child" dispatch={dispatch} capture={state.child} />
+      <div className={styles.eventBlock}>
+        <input type="button" value="Clear" onClick={onClickClearList} />
+        <span className={styles.eventList}>{state.list.toString()}</span>
+      </div>
+      <div className={styles.captureBlock}>
+        <CaptureSwitch
+          title="ancestor"
+          dispatch={dispatch}
+          capture={state.ancestor}
+        />
+        <CaptureSwitch
+          title="parent"
+          dispatch={dispatch}
+          capture={state.parent}
+        />
+        <CaptureSwitch
+          title="child"
+          dispatch={dispatch}
+          capture={state.child}
+        />
+      </div>
       <Counter title="ancestor" dispatch={dispatch} capture={state.ancestor}>
         <Counter title="parent" dispatch={dispatch} capture={state.parent}>
           <Counter title="child" dispatch={dispatch} capture={state.child} />

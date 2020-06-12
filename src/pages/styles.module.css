@@ -36,14 +36,42 @@
   width: 200px;
 }
 
+.caseCounter {
+  padding: 16px;
+}
+
 .counter {
   border: solid 1px silver;
-  padding: 8px;
-  margin: 8px;
+  padding: 16px;
+}
+
+.title {
+  text-transform: capitalize;
+  text-align: center;
 }
 
 .label {
   display: inline-flex;
   align-items: center;
+  margin-right: 8px;
+}
+
+.eventBlock::before {
+  content: '事件触发顺序';
+  margin-right: 8px;
+}
+
+.eventList::before {
+  content: '';
+  margin-left: 8px;
+}
+
+.captureBlock {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.captureBlock::before {
+  content: '是否捕获';
   margin-right: 8px;
 }
