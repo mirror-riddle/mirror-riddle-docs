@@ -70,3 +70,7 @@ const curriedSum = curry(
   })
 );
 ```
+
+### 关于偏函数（partial application）
+
+偏函数固定原始函数的一个或多个参数，相当于`basicCurry()`。
