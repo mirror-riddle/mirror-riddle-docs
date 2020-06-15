@@ -12,6 +12,7 @@ title: ' '
 
 - [函数声明实例化](javascript/function-declaration-instantiation)
 - [闭包](javascript/closure)
+- [柯里化](javascript/curry-function)
 - [compose()](javascript/compose)
 - [this](javascript/this)
 
