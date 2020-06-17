@@ -39,14 +39,11 @@ const basicCurry = (func, ...restArgs) => func.bind(this, ...restArgs);
 根据参数的个数递归柯里化
 
 ```javascript
-const curry = (func, length) => {
-  length = length || func.length;
-  return (...args) => {
-    if (length <= args.length) {
-      return func(...args);
-    }
-    return curry(basicCurry(func, ...args), length - args.length);
-  };
+const curry = (func, length = func.length) => (...args) => {
+  if (length <= args.length) {
+    return func(...args);
+  }
+  return curry(basicCurry(func, ...args), length - args.length);
 };
 
 // const sum = (x, y, z) => x + y + z;

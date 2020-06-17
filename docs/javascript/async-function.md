@@ -3,21 +3,48 @@ id: async-function
 title: Async Function
 ---
 
-[async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+async 关键字定义异步函数(`AsyncFunction`)。异步函数内部肯可以使用 await 关键字。async 和 await 关键字允许我们写更简洁的代码实现以 promise 为基础的异步操作，而不用显式编写 promise 链。
 
-The async function declaration defines an asynchronous function — a function that returns an `AsyncFunction` object. Asynchronous functions operate in a separate order than the rest of the code via the `event loop`, returning an implicit `Promise` as its result. But the syntax and structure of code using async functions looks like standard synchronous functions.
+## 描述
 
-## Description
+异步函数内，await 表达式暂停函数执行，等待目标 promise resolve，然后接受 resolve 值，await 表示式执行完毕，函数继续往下执行。当异步函数暂停时，调用异步函数的外部函数会继续执行（异步函数会隐式地返回一个 promise，外部函数？？？）。使用异步函数的目的是以同步代码的形式写 promise，以及对一组 promise 执行操作。`async/await`类似于合并使用生成器和 promise。
 
-An async function can contain an `await` expression that pauses the execution of the async function to wait for the passed Promise's resolution, then resumes the async function's execution and evaluates as the resolved value.
+## 要点
 
-The await keyword is only valid inside async functions. If you use it outside of an async function's body, you will get a `SyntaxError`.
+1. 调用异步函数会返回 promise，当返回的值不是 promise 的时候，它会自动被 promise 化。
 
-While the async function is paused, the calling function continues running (having received the implicit Promise returned by the async function).
+```javascript
+async function getName() {
+  const name = await 'mirror-riddle';
+  return name;
+  // 相当于 return Promise.resolve(name);
+}
+```
 
-The purpose of `async/await` is to simplify using promises synchronously, and to perform some behavior on a group of Promises. As Promises are similar to structured callbacks, `async/await` is similar to combining generators and promises.
+2. 异步函数内，在第一个 await 表达式之前的代码是同步执行的，之后的代码可以被视为存在于.then()回调中。
 
-## Return await promiseValue; vs. return promiseValue
+```javascript
+async function foo() {
+  await 1;
+  return 2;
+  // 相当于 return Promise.resolve(1).then(() => 2);
+}
+
+async function getName() {
+  const name = await 'mirror-riddle';
+  return name;
+  // 相当于 return Promise.resolve('mirror-riddle').then((name) => name);
+}
+
+async function foobar() {
+  const prefix = await 'foo';
+  const subfix = await 'bar';
+  return prefix + subfix;
+  // 相当于 return Promise.resolve('foo').then((prefix) => Promise.resolve('bar').then((subfix) => prefix + subfix)).
+}
+```
+
+## return await VS return
 
 The implicit wrapping of return values in `Promise.resolve` does not imply that return `await promiseValue`; is functionally equivalent to return promiseValue;
 

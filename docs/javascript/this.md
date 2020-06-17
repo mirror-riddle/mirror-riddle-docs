@@ -3,11 +3,11 @@ id: this
 title: This
 ---
 
-大多数情况下，函数内 this 的值取决于函数是如何被调用的。不能在函数执行时重新给 this 赋值，同时每次函数被调用 this 的值也可能不一样。`bind()`方法可以给函数绑定 this，使 this 的值与函数如何被调用无关。箭头函数没有自己的 this 绑定，其内部的 this 指向上层 lexical context 的 this。
+大多数情况下，函数内 this 的值取决于函数是如何被调用的。不能在函数执行时重新给 this 赋值，同时每次函数被调用 this 的值也可能不一样。`bind()`方法可以给函数绑定 this，使 this 的值与函数如何被调用无关。箭头函数没有自己的 this 绑定，其内部的 this 指向上层语义上下文的 this。
 
 ### 全局上下文
 
-在全局上下文中（不在任何函数中），this 指向全局对象(global object)。无论代码在哪个执行上下文中运行，`globalThis`总是指向全局对象(global object)。
+在全局上下文中（不在任何函数中），this 指向全局对象。无论代码在哪个执行上下文中运行，都可以用`globalThis`访问全局对象。
 
 ```javascript
 // In web browsers, the window object is also the global object:

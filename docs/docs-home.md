@@ -15,6 +15,8 @@ title: ' '
 - [柯里化](javascript/curry-function)
 - [compose()](javascript/compose)
 - [this](javascript/this)
+- [promise](javascript/promise)
+- [async-function](javascript/async-function)
 
 <!-- ### CSS -->
 

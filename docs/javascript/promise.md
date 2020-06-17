@@ -3,23 +3,17 @@ id: promise
 title: Promise
 ---
 
-[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-
-[Using Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
-
-The Promise object represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
-
-## Syntax
+## 语法
 
 `new Promise(executor)`
 
 `executor` 函数有两个参数（resolve 函数和 reject 函数），它执行一些异步操作，完成时执行 resolve 函数，失败时执行 reject 函数，如果它执行时抛出错误，也执行 reject 函数。
 
-## Description
+## 概念
 
 Promise 让异步方法可以像同步方法返回值那样返回一个 promise，这个 promise 可以在未来的某个时间提供最终的返回值。
 
-Promise States
+Promise 的状态
 
 `pending` 初始状态
 
@@ -27,11 +21,11 @@ Promise States
 
 `rejected` 操作失败
 
-`settled` 成功或者失败
+`settled` 要么是 fulfilled，要么是 rejected
 
-当 promise 进入 settled 状态时，`promise.then` 绑定的回调函数将会依序被调用。即使在 promise 已经 settled 的情况下，继续给`promise.then`绑定回调函数，这些函数还是会被调用的，因此异步操作完成和回调函数绑定不存在竞争条件。
+当 promise 进入 settled 状态时，`promise.then()` 绑定的回调函数将会依序被调用。即使在 promise 已经 settled 的情况下，继续给`promise.then()`绑定回调函数，这些函数还是会被调用（异步微任务），因此异步操作完成和回调函数绑定不存在竞争条件。`promise.then()` 、`promise.finally()` 和 `promise.catch()` 都会返回新的 promise, 因此他们可以连起来用。
 
-`promise.then()` 和 `promise.catch()` 都会返回 promise, 因此他们可以连起来用。
+![promises](/img/promises.png)
 
 ## 静态方法
 
@@ -43,49 +37,49 @@ Promise States
 
 `Promise.reject(reason)` 返回一个以 reason reject 的 promise
 
-`Promise.resolve(value)` 返回一个以 value resolve 的 promise，如果 value 是一个 promise，那么返回的 promise 会追随这个 promise 的“一举一动”
+`Promise.resolve(value)` 返回一个以 value resolve 的 promise，如果 value 是一个 promise，那么返回的 promise 会追随这个 promise 的“一举一动”。通常，如果你不知道 value 是否是一个 promise，那么就可以用这个方法将它包装成一个 promise。
 
 ##　实例方法
 
-`promise.catch()` 给 promise 追加一个 rejection handler，and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
+`promise.catch()` 给 promise 追加一个 rejection 函数，返回一个新的 promise，这个 promise 以该函数的返回值作为 resolve 值（如果原 promise 进入 rejected 状态的话），或者跟随原 promise 的 resolve 值（如果原来的 promise 进入 fulfilled 状态的话）
 
-`promise.then()` Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler, or to its original settled value if the promise was not handled (i.e. if the relevant handler onFulfilled or onRejected is not a function).
+`promise.then()` 给 promise 添加 fulfillment 和 rejecttion 函数，如果这两个函数任一个被调用了，返回一个新的 promise（以被调用函数的返回值为 resolve 值），否则返回的 promise 跟随原来的 promise。
 
-`promise.finally()` Appends a handler to the promise, and returns a new promise which is resolved when the original promise is resolved. The handler is called when the promise is settled, whether fulfilled or rejected.
+`promise.finally()` 给 promise 添加一个处理函数，无论 fulfilled 还是 rejected 都会被调用，但是这个函数并不以 resolve 值或者 reject 值作为参数，返回一个 promise 跟随原来的 promise。
 
-## Chaining
+无论是 catch、then 还是 finally，如果给定的处理函数没有被调用，那么返回的 promise 就会跟随原来的 promise，否则返回的 promise 的 resolve 值会是处理函数的返回值。一个 promise 跟随另一个 promise 的意思是指一个 promise 总是在另一个 promise resolve 的时候跟着 resolve，reject 的时候跟着 reject。另外，promise 链中一旦调用过处理函数，后续的 promise 就只能添加 resolve 处理函数，因为后续的 promise 只能 resolve 到第一个被调用的处理函数的返回值。也正因为如此，catch 只能用一次，后续再用也无效。
+
+## promise 链
 
 ```javascript
-doSomething()
-  .then(function(result) {
-    return doSomethingElse(result);
+Promise.resolve('resolved')
+  .then(function (result) {
+    const newResult = getNewResult(result);
+    return newResult;
   })
-  .then(function(newResult) {
-    return doThirdThing(newResult);
+  .then(function (newResult) {
+    const finalResult = getFinalResult(newResult);
+    return finalResult;
   })
-  .then(function(finalResult) {
-    console.log("Got the final result: " + finalResult);
+  .then(function (finalResult) {
+    console.log('Got the final result: ' + finalResult);
   })
   .catch(failureCallback);
 ```
 
-## Guarantees
+## promise 要点
 
-1. Callbacks will never be called before the completion of the current run of the JavaScript event loop.
+1. promise 的处理函数总是在当前 event loop 流程执行完毕之后才会执行。
 
-2. Callbacks added with then() even after the success or failure of the asynchronous operation, will be called, as above.
+2. 即使 promise 已经 resolve 或者 reject，此时用 then()添加处理函数，这些函数也会执行，但是像上一条所描述的那样，它们会在下次 event loop 流程中执行。
 
-3. Multiple callbacks may be added by calling then() several times. Each callback is executed one after another, in the order in which they were inserted.
+3. 通过多次调用 then()添加多个处理函数，这些函数会按照它们添加的顺序依次执行。
 
-## Promise rejection events
+## Promise reject 事件
 
-Whenever a promise is rejected, one of two events is sent to the global scope (generally, this is either the window or, if being used in a web worker, it's the Worker or other worker-based interface). The two events are:
+当 promise reject 的时候，以下两个事件之一会被发送到全局作用域(window)。`rejectionhandled`, `unhandledrejection`。如果对它们绑定监听函数，监听函数也是作为微任务在下一轮事件循环开头执行的。
 
-`rejectionhandled`
-
-`unhandledrejection`
-
-## When promises and tasks collide
+## promise 和微任务
 
 ```javascript
 customElement.prototype.getData = url => {
@@ -104,15 +98,15 @@ customElement.prototype.getData = url => {
 };
 ```
 
-This balances the clauses by having both situations handle the setting of data and firing of the load event within a microtask (using queueMicrotask() in the if clause and using the promises used by fetch() in the else clause).
+promise 的处理函数会作为微任务执行，用 queueMicrotask()也可以将代码打包成微任务，这样两种情况下代码的执行时机就相同了。
 
-## Common mistakes
+## 错误用法
 
 1. 没有将 promises 连接起来
 
 2. 不必要的嵌套
 
-3. 没有用 catch()结束 promise chain
+3. 没有用 catch()结束 promise 链条
 
 ```javascript
 / Bad example! Spot 3 mistakes!
@@ -133,20 +127,15 @@ doSomething()
 .catch(error => console.error(error));
 ```
 
-## Timing
+## 调用时机
 
-To avoid surprises, functions passed to then() will never be called synchronously, even with an already-resolved promise:
+传递给 then()的处理函数不会被同步调用，即使 promise 已经 resolve 过了。
 
 ```javascript
 Promise.resolve().then(() => console.log(2));
 console.log(1); // 1, 2
-```
 
-Instead of running immediately, the passed-in function is put on a microtask queue, which means it runs later when the queue is emptied at the end of the current run of the JavaScript event loop, i.e. pretty soon:
-
-```javascript
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 wait().then(() => console.log(4));
 Promise.resolve()
   .then(() => console.log(2))
