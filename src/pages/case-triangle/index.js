@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './style.module.css';
-import { TriangleItem } from './triangle-item';
+import TriangleItem from './triangle-item';
 
-export const CaseTriangle = (props) => {
+const CaseTriangle = (props) => {
   return (
     <div className={styles.caseTriangle}>
       {['up', 'down', 'left', 'right'].map((direction, index) => (
@@ -11,3 +11,5 @@ export const CaseTriangle = (props) => {
     </div>
   );
 };
+
+export default CaseTriangle;

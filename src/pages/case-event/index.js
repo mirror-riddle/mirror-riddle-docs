@@ -76,7 +76,7 @@ const reducer = (state, action) => {
   }
 };
 
-export const CaseEvent = () => {
+const CaseEvent = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const onClickClearList = useCallback(() => {
     dispatch({
@@ -137,3 +137,5 @@ export const CaseEvent = () => {
     </section>
   );
 };
+
+export default CaseEvent;
