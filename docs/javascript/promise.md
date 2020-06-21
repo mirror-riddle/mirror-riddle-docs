@@ -11,17 +11,15 @@ title: Promise
 
 ## 概念
 
-Promise 让异步方法可以像同步方法返回值那样返回一个 promise，这个 promise 可以在未来的某个时间提供最终的返回值。
+Promise 对象是一个占位符(placeholder)，用来代表一个异步操作的最终结果。
 
-Promise 的状态
+Promise 对象有三种可能的状态，
 
-`pending` 初始状态
+- `pending` 初始状态
+- `fulfilled` 遇到 promise.then(f), f 被添加到微任务队列里
+- `rejected` 遇到 promise.then(f, r), r 被添加到微任务队列里
 
-`fulfilled` 操作成功
-
-`rejected` 操作失败
-
-`settled` 要么是 fulfilled，要么是 rejected
+如果一个 Promise 对象不处于`pending`状态，我们就称它已经 settled。
 
 当 promise 进入 settled 状态时，`promise.then()` 绑定的回调函数将会依序被调用。即使在 promise 已经 settled 的情况下，继续给`promise.then()`绑定回调函数，这些函数还是会被调用（异步微任务），因此异步操作完成和回调函数绑定不存在竞争条件。`promise.then()` 、`promise.finally()` 和 `promise.catch()` 都会返回新的 promise, 因此他们可以连起来用。
 
@@ -74,6 +72,8 @@ Promise.resolve('resolved')
 2. 即使 promise 已经 resolve 或者 reject，此时用 then()添加处理函数，这些函数也会执行，但是像上一条所描述的那样，它们会在下次 event loop 流程中执行。
 
 3. 通过多次调用 then()添加多个处理函数，这些函数会按照它们添加的顺序依次执行。
+
+4. 当 resolve()的参数是当前 promise，抛出类型错误。当参数是另一个 promise（准确地说是一个实现了 then 方法的对象），会在这个 promise 的 then 处理函数里调用当前 promise 对象的 resolve()。
 
 ## Promise reject 事件
 
@@ -141,4 +141,93 @@ Promise.resolve()
   .then(() => console.log(2))
   .then(() => console.log(3));
 console.log(1); // 1, 2, 3, 4
+```
+
+### 自定义 promise 实现
+
+```javascript
+class CustomPromise {
+  constructor(executor) {
+    this.state = 'pending';
+    this.result = undefined;
+    this.rejectHandlers = [];
+    this.fullfilHandlers = [];
+    this.alreadyResolved = false;
+    executor(this.resolve, this.reject);
+  }
+
+  resolve = (resolution) => {
+    if (promise.alreadyResolved === true) {
+      return;
+    }
+    promise.alreadyResolved = true;
+    if (resolution === promise) {
+      const reason = new TypeError("can't resolve self");
+      return promise.rejectPromise(reason);
+    }
+    return promise.fullfilPromise(resolution);
+  };
+
+  reject = (reason) => {
+    if (promise.alreadyResolved === true) {
+      return;
+    }
+    promise.alreadyResolved = true;
+    return promise.rejectPromise(reason);
+  };
+
+  rejectPromise(reason) {
+    if (this.state !== 'pending') {
+      return;
+    }
+    const handlers = this.rejectHandlers;
+    this.result = reason;
+    this.fullfilHandlers = undefined;
+    this.rejectHandlers = undefined;
+    this.state = 'rejected';
+    this.triggerPromiseHandlers(handlers, reason);
+  }
+
+  fullfilPromise(value) {
+    if (this.state !== 'pending') {
+      return;
+    }
+    const handlers = this.fullfilHandlers;
+    this.result = value;
+    this.fullfilHandlers = undefined;
+    this.rejectHandlers = undefined;
+    this.state = 'fullfiled';
+    this.triggerPromiseHandlers(handlers, value);
+  }
+
+  triggerPromiseHandlers(handlers, reason) {
+    for (const handler of handlers) {
+      queueMicrotask(function () {
+        handler(reason);
+      });
+    }
+  }
+
+  then(onFullfiled, onRejected) {
+    if (this.state === 'pending') {
+      // if it is function
+      if (onFullfiled) {
+        this.fullfilHandlers.push(onFullfiled);
+      }
+      if (onRejected) {
+        this.rejectHandlers.push(onRejected);
+      }
+    } else if (this.state === 'fullfiled') {
+      const value = this.result;
+      queueMicrotask(function () {
+        onFullfiled(value);
+      });
+    } else if (this.state === 'rejected') {
+      const reason = this.result;
+      queueMicrotask(function () {
+        onRejected(reason);
+      });
+    }
+  }
+}
 ```
