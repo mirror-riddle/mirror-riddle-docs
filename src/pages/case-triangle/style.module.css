@@ -1,0 +1,36 @@
+.caseTriangle {
+  display: flex;
+  flex-direction: row;
+}
+
+.triangleItem {
+  padding: 20px;
+  margin-right: 20px;
+  border: dashed 2px teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.triangle {
+  display: inline-block;
+  border: solid 20px transparent;
+  border-top-width: 0px;
+  border-bottom-width: 40px;
+  border-bottom-color: teal;
+}
+
+.triangle[data-direction='up'] {
+}
+
+.triangle[data-direction='down'] {
+  transform: rotate(180deg);
+}
+
+.triangle[data-direction='right'] {
+  transform: rotate(-90deg);
+}
+
+.triangle[data-direction='left'] {
+  transform: rotate(90deg);
+}

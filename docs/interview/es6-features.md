@@ -46,9 +46,7 @@ for (const item of iterator) {
 }
 ```
 
-生成器是一个返回迭代器的函数。
+生成器是一个返回迭代器的函数，该迭代器对象同时也是一个可迭代对象。
 
 ```javascript
-const
-
 ```
