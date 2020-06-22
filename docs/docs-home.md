@@ -10,7 +10,6 @@ title: ' '
 
 ### JavaScript
 
-- [ECMAScript 2016 ~ 2020](es6/es2016-2020)
 - [函数声明实例化](javascript/function-declaration-instantiation)
 - [防抖和节流](javascript/debounce-throttle)
 - [闭包](javascript/closure)
@@ -23,6 +22,16 @@ title: ' '
 ### CSS
 
 - [CSS 三角形](css/css-triangle)
+
+### ES6
+
+- [模块](es6/module)
+- [ECMAScript 2016 ~ 2020](es6/es2016-2020)
+
+### 配置
+
+- [nginx gzip](nginx-gzip)
+
 <!-- - [flex 布局](css/flex) -->
 
 <!-- ### HTML(规范) -->
