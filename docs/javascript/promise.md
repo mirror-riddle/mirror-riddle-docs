@@ -143,7 +143,7 @@ Promise.resolve()
 console.log(1); // 1, 2, 3, 4
 ```
 
-### 自定义 promise 实现
+## 自定义 promise 实现
 
 ```javascript
 class CustomPromise {
