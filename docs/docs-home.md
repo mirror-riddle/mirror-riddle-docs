@@ -28,6 +28,7 @@ title: ' '
 - [模块](es6/module)
 - [Proxy Reflect](es6/proxy-reflect)
 - [Promise 异步编程](es6/promise-async-programming)
+- [array 新增方法](es6/array-improvement)
 - [ECMAScript 2016 ~ 2020](es6/es2016-2020)
 
 ### 配置
