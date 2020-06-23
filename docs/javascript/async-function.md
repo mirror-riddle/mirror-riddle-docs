@@ -27,12 +27,14 @@ async function getName() {
 async function foo() {
   await 1;
   return 2;
-  // 相当于 return Promise.resolve(1).then(() => 2);
+  // value is 1
+  // 相当于 return Promise.resolve(1).then((value) => 2);
 }
 
 async function getName() {
   const name = await 'mirror-riddle';
   return name;
+  // name is 'mirror-riddle'
   // 相当于 return Promise.resolve('mirror-riddle').then((name) => name);
 }
 
@@ -40,15 +42,13 @@ async function foobar() {
   const prefix = await 'foo';
   const subfix = await 'bar';
   return prefix + subfix;
-  // 相当于 return Promise.resolve('foo').then((prefix) => Promise.resolve('bar').then((subfix) => prefix + subfix)).
+  // prefix is 'foo', subfix is 'bar'
+  // 相当于 return Promise.resolve('foo').then((prefix) =>
+  // Promise.resolve('bar').then((subfix) => prefix + subfix)).
 }
 ```
 
 ## return await VS return
-
-The implicit wrapping of return values in `Promise.resolve` does not imply that return `await promiseValue`; is functionally equivalent to return promiseValue;
-
-Consider the following rewrite of the above code, that returns null if `processDataInWorker` rejects with an error:
 
 ```javascript
 async function getProcessedData(url) {
@@ -59,13 +59,18 @@ async function getProcessedData(url) {
     v = await downloadFallbackData(url);
   }
   try {
-    return await processDataInWorker(v); // Note the `return await` vs. just `return`
+    // Note the return await vs. just return
+    // return processDateInWorker(v);
+    return await processDataInWorker(v);
   } catch (e) {
     return null;
   }
 }
 ```
 
-Writing `return processDataInWorker(v)`; would have caused the `Promise` returned by the function to reject, instead of resolving to `null` if `processDataInWorker(v)` rejects.
+如果 processDateInWorker(v) reject 的话，return processDataInWorker(v) 会导致异步函数返回的 promise reject，而不是返回一个 resove 值为 null 的 promise。
 
-This highlights the subtle difference between `return foo`; and `return await foo`; — `return foo`; immediately returns foo and never throws, even if foo is a promise and rejects. `return await foo`; will wait for foo to resolve or reject if it's a promise, and throws before returning if it rejects.
+return foo 和 return await foo 的区别:
+
+- return foo 立即返回 foo，即使 foo 是一个 promise 并且 reject 了，也不会抛出错误。
+- return await foo 会等待 foo reject 或者 resolve，并且在 reject 的情况下，在返回之前就会抛出错误。
