@@ -75,6 +75,8 @@ Promise.resolve('resolved')
 
 4. 当 resolve()的参数是当前 promise，抛出类型错误。当参数是另一个 promise（准确地说是一个实现了 then 方法的对象），会在这个 promise 的 then 处理函数里调用当前 promise 对象的 resolve()。
 
+5. 如果给 Promise.resolve() 或 Promise.reject()传递一个 promise，那么会原封不动地返回该 promise。
+
 ## Promise reject 事件
 
 当 promise reject 的时候，以下两个事件之一会被发送到全局作用域(window)。`rejectionhandled`, `unhandledrejection`。如果对它们绑定监听函数，监听函数也是作为微任务在下一轮事件循环开头执行的。
