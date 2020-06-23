@@ -26,6 +26,7 @@ title: ' '
 ### ES6
 
 - [模块](es6/module)
+- [Proxy Reflect](es6/proxy-reflect)
 - [ECMAScript 2016 ~ 2020](es6/es2016-2020)
 
 ### 配置
