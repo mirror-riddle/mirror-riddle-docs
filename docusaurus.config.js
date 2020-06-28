@@ -81,7 +81,7 @@ module.exports = {
       //     ],
       //   },
       // ],
-      copyright: `Copyright © ${new Date().getFullYear()} Mirror Riddle. Built with Docusaurus.`,
+      copyright: `<span>湘ICP备20009476号</span>`,
     },
   },
   presets: [
